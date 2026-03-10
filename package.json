@@ -1,0 +1,22 @@
+{
+  "name": "earthquake-intel-agent",
+  "version": "1.0.0",
+  "description": "Real-time earthquake intelligence powered by USGS data",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "bun run src/index.ts",
+    "start": "bun run src/index.ts",
+    "build": "bun build src/index.ts --outdir dist --target bun"
+  },
+  "dependencies": {
+    "@lucid-agents/core": "latest",
+    "@lucid-agents/hono": "latest",
+    "@lucid-agents/http": "latest",
+    "@lucid-agents/payments": "latest",
+    "hono": "latest",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  }
+}
