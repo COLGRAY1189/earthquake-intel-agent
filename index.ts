@@ -752,7 +752,17 @@ addEntrypoint({
 const port = parseInt(process.env.PORT ?? "3000");
 export default {
   port,
-  fetch: app.fetch,
+  fetch: (req: Request) => {
+    // Fix x402 resource URL behind Railway's reverse proxy:
+    // Railway terminates TLS and forwards http:// internally, but the 402
+    // resource URL must use https:// so the facilitator can reach the endpoint.
+    const url = new URL(req.url);
+    if (url.protocol === "http:") {
+      url.protocol = "https:";
+      return app.fetch(new Request(url.toString(), req));
+    }
+    return app.fetch(req);
+  },
 };
 
 console.log(`Earthquake Intel Agent running on http://localhost:${port}`);
